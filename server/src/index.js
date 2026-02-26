@@ -59,6 +59,8 @@ async function main() {
   app.use("/api/habits", require("./routes/habits"));
   app.use("/api/journal", require("./routes/journal"));
   app.use("/api/goals", require("./routes/goals"));
+  app.get("/", (_req, res) => res.status(200).send("OK"));
+  app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 
   app.listen(env.port, () => console.log(`✅ Server: http://localhost:${env.port}`));

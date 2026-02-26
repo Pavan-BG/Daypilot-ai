@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Planner from "./pages/Planner.jsx";
@@ -7,34 +8,74 @@ import Habits from "./pages/Habits.jsx";
 import Journal from "./pages/Journal.jsx";
 import Goals from "./pages/Goals.jsx";
 
-// Best-practice: allow env override but keep your existing default
 const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bootError, setBootError] = useState("");
 
   async function refresh() {
     setLoading(true);
-    const r = await fetch(`${API}/auth/me`, { credentials: "include" });
-    const data = await r.json().catch(() => ({}));
-    setUser(data.user || null);
-    setLoading(false);
+    setBootError("");
+
+    try {
+      const r = await fetch(`${API}/auth/me`, { credentials: "include" });
+
+      // If backend is up but route not found, show it clearly
+      if (!r.ok) {
+        const text = await r.text().catch(() => "");
+        throw new Error(`Auth check failed (${r.status}). ${text || ""}`.trim());
+      }
+
+      const data = await r.json().catch(() => ({}));
+      setUser(data.user || null);
+    } catch (e) {
+      setUser(null);
+      setBootError(e?.message || "Failed to reach backend.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
     refresh();
   }, []);
 
-  // You can swap this to a loader later; keeping behavior unchanged for safety
-  if (loading) return null;
+  if (loading) {
+    return (
+      <Box sx={{ minHeight: "100vh", display: "grid", placeItems: "center", p: 3 }}>
+        <Typography sx={{ opacity: 0.8 }}>Loading…</Typography>
+      </Box>
+    );
+  }
+
+  // Show a helpful screen instead of blank when backend/env is wrong
+  if (bootError) {
+    return (
+      <Box sx={{ minHeight: "100vh", display: "grid", placeItems: "center", p: 3 }}>
+        <Paper sx={{ p: 3, border: "1px solid", borderColor: "divider", maxWidth: 680 }}>
+          <Typography fontWeight={950} sx={{ mb: 1 }}>
+            App couldn’t reach the backend
+          </Typography>
+          <Typography sx={{ opacity: 0.75, mb: 2 }}>
+            {bootError}
+          </Typography>
+          <Typography sx={{ opacity: 0.7, mb: 2, fontSize: 13 }}>
+            Current API base: <b>{API}</b>
+          </Typography>
+          <Button variant="contained" onClick={refresh}>
+            Retry
+          </Button>
+        </Paper>
+      </Box>
+    );
+  }
 
   return (
     <Routes>
-      {/* Login */}
       <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Login api={API} />} />
 
-      {/* Protected */}
       <Route
         path="/dashboard"
         element={user ? <Dashboard api={API} user={user} onRefresh={refresh} /> : <Navigate to="/" replace />}
@@ -56,7 +97,6 @@ export default function App() {
         element={user ? <Goals api={API} user={user} onRefresh={refresh} /> : <Navigate to="/" replace />}
       />
 
-      {/* Fallback */}
       <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
     </Routes>
   );
