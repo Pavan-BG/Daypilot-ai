@@ -1,0 +1,12 @@
+[build]
+  base = "client"
+  publish = "dist"
+  command = "npm ci --include=dev && node ./node_modules/vite/bin/vite.js build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
