@@ -40,20 +40,24 @@ async function main() {
 
   // 3) CORS (must be BEFORE routes, and must allow credentials)
   const allowedOrigins = [
-    env.frontendUrl,        // Netlify URL in production
-    "http://localhost:5173" // local dev
-  ];
+    env.frontendUrl,
+    "http://localhost:5173",
+    "https://daypilot-pavan.netlify.app"
+  ].filter(Boolean);
 
   const corsOptions = {
     origin: (origin, cb) => {
-      // Allow non-browser requests (curl/Render health checks)
       if (!origin) return cb(null, true);
-      if (allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error(`CORS blocked for origin: ${origin}`), false);
+
+      // Allow your main Netlify site + any preview URL under netlify.app (optional)
+      const isNetlifyPreview =
+        typeof origin === "string" && origin.endsWith(".netlify.app");
+
+      if (allowedOrigins.includes(origin) || isNetlifyPreview) return cb(null, true);
+
+      return cb(null, false); // IMPORTANT: do NOT throw; just deny
     },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    credentials: true
   };
 
   app.use(cors(corsOptions));
