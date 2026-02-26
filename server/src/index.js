@@ -57,7 +57,7 @@ async function main() {
   };
 
   app.use(cors(corsOptions));
-  app.options("*", cors(corsOptions));
+  app.options(/.*/, cors(corsOptions));
 
   // 4) Parsers
   app.use(express.json());
