@@ -25,7 +25,7 @@ const HomeInfo = ({ showLogin, api }) => (
         <b>Privacy & Security:</b> We respect your privacy. Your data is never sold or shared. See our <a href="/privacy" style={{ color: "#90caf9" }}>Privacy Policy</a> and <a href="/terms" style={{ color: "#90caf9" }}>Terms of Service</a>.
       </Typography>
       <Typography sx={{ mb: 2 }}>
-        <b>Contact:</b> For support or questions, email <a href="mailto:ssspriyamoru@gmail.com" style={{ color: "#90caf9" }}>ssspriyamoru@gmail.com</a>.
+        <b>Contact:</b> For support or questions, email <a href="mailto:pavanbg660@gmail.com" style={{ color: "#90caf9" }}>pavanbg660@gmail.com</a>.
       </Typography>
       {showLogin && (
         <Button

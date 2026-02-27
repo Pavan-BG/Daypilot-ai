@@ -25,7 +25,7 @@ const PrivacyPolicy = () => (
     </p>
     <h2>5. Your Rights</h2>
     <p>
-      You may request access to or deletion of your personal information by contacting us at ssspriyamoru@gmail.com.
+      You may request access to or deletion of your personal information by contacting us at pavanbg660@gmail.com.
     </p>
     <h2>6. Changes to Policy</h2>
     <p>
@@ -33,7 +33,7 @@ const PrivacyPolicy = () => (
     </p>
     <h2>7. Contact</h2>
     <p>
-      For questions about this policy, contact us at ssspriyamoru@gmail.com.
+      For questions about this policy, contact us at pavanbg660@gmail.com.
     </p>
   </div>
 );

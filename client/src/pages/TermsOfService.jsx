@@ -33,7 +33,7 @@ const TermsOfService = () => (
     </p>
     <h2>7. Contact</h2>
     <p>
-      For questions about these terms, contact us at ssspriyamoru@gmail.com.
+      For questions about these terms, contact us at pavanbg660@gmail.com.
     </p>
   </div>
 );
