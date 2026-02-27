@@ -32,6 +32,9 @@ export default function Login({ api }) {
         <Typography sx={{ opacity: 0.75, mb: 3 }}>
           Sign in with Google to access your private workspace.
         </Typography>
+        <Typography sx={{ opacity: 0.7, mb: 2, fontSize: 15 }}>
+          <a href="/info" style={{ color: "#90caf9" }}>What is this?</a>
+        </Typography>
 
         <Button
           fullWidth
@@ -45,6 +48,10 @@ export default function Login({ api }) {
         <Typography sx={{ mt: 2, opacity: 0.6, fontSize: 12 }}>
           Session-based login. No token juggling. Corporate compliance approves.
         </Typography>
+        <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <a href="/terms" style={{ color: "#90caf9", fontSize: 12 }}>Terms</a>
+          <a href="/privacy" style={{ color: "#90caf9", fontSize: 12 }}>Privacy</a>
+        </Box>
       </Paper>
     </Box>
   );

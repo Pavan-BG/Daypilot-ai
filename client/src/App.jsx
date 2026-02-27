@@ -7,6 +7,9 @@ import Planner from "./pages/Planner.jsx";
 import Habits from "./pages/Habits.jsx";
 import Journal from "./pages/Journal.jsx";
 import Goals from "./pages/Goals.jsx";
+import TermsOfService from "./pages/TermsOfService.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import HomeInfo from "./pages/HomeInfo.jsx";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
@@ -74,8 +77,13 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Login api={API} />} />
-
+      <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/info" element={<HomeInfo />} />
+      <Route
+        path="/"
+        element={user ? <Navigate to="/dashboard" replace /> : <Login api={API} />}
+      />
       <Route
         path="/dashboard"
         element={user ? <Dashboard api={API} user={user} onRefresh={refresh} /> : <Navigate to="/" replace />}
@@ -96,8 +104,7 @@ export default function App() {
         path="/goals"
         element={user ? <Goals api={API} user={user} onRefresh={refresh} /> : <Navigate to="/" replace />}
       />
-
-      <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
+      <Route path="*" element={<Navigate to={user ? "/dashboard" : "/info"} replace />} />
     </Routes>
   );
 }

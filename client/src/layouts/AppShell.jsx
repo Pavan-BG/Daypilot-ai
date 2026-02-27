@@ -113,6 +113,10 @@ export default function AppShell({ api, user, onRefresh, title, subtitle, childr
             {user?.name || user?.email || "—"}
           </Box>
         </Typography>
+        <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <a href="/terms" style={{ color: "#90caf9", fontSize: 12 }}>Terms</a>
+          <a href="/privacy" style={{ color: "#90caf9", fontSize: 12 }}>Privacy</a>
+        </Box>
       </Box>
     </Box>
   );
