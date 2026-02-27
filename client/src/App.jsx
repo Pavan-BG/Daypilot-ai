@@ -82,7 +82,7 @@ export default function App() {
       <Route path="/info" element={<HomeInfo />} />
       <Route
         path="/"
-        element={user ? <Navigate to="/dashboard" replace /> : <Login api={API} />}
+        element={user ? <Navigate to="/dashboard" replace /> : <HomeInfo showLogin api={API} />}
       />
       <Route
         path="/dashboard"

@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, Button } from "@mui/material";
 
-const HomeInfo = () => (
+const HomeInfo = ({ showLogin, api }) => (
   <Box sx={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#07070A" }}>
     <Paper sx={{ p: 4, maxWidth: 700, borderRadius: 2, background: "rgba(18,10,26,0.92)", color: "#fff" }}>
       <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
@@ -27,6 +27,16 @@ const HomeInfo = () => (
       <Typography sx={{ mb: 2 }}>
         <b>Contact:</b> For support or questions, email <a href="mailto:ssspriyamoru@gmail.com" style={{ color: "#90caf9" }}>ssspriyamoru@gmail.com</a>.
       </Typography>
+      {showLogin && (
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, background: "#6c63ff" }}
+          onClick={() => window.location.href = `${api || ""}/auth/google`}
+        >
+          Sign in with Google
+        </Button>
+      )}
     </Paper>
   </Box>
 );
